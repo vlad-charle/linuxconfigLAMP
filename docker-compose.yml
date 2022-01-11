@@ -2,8 +2,7 @@ version: '3.7'
 
 services:
     php-httpd:
-        build:
-            context: ./php-httpd
+        image: vladsanyuk/ssdevopscc:php-httpd
         ports:
             - 80:80
         volumes:
