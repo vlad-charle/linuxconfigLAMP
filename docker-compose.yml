@@ -2,11 +2,9 @@ version: '3.7'
 
 services:
     php-httpd:
-        image: vladsanyuk/ssdevopscc:php-httpd
+        image: test:test
         ports:
             - 80:80
-        volumes:
-            - "./DocumentRoot:/var/www/html"
 
     mariadb:
         image: mariadb:10.5.2
