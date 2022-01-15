@@ -21,7 +21,7 @@ node {
 
     stage('Deploy') {
 
-        kubernetesDeploy(configs: "k8s/lamp-secret.yaml", kubeconfigId: "mykubeconfig")
+        kubernetesDeploy(configs: "k8s/php-httpd.yaml", kubeconfigId: "mykubeconfig")
 
     }
 
