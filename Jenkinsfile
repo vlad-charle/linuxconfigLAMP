@@ -21,11 +21,11 @@ node {
 
     stage('Deploy') {
 
-        kubernetesDeploy(configs: "k8s/lamp-secret.yaml", kubeconfigId: '')
-        kubernetesDeploy(configs: "k8s/mariadb-configmap.yaml", kubeconfigId: '')
-        kubernetesDeploy(configs: "k8s/mariadb.yaml", kubeconfigId: '')
-        kubernetesDeploy(configs: "k8s/phpmyadmin.yaml", kubeconfigId: '')
-        kubernetesDeploy(configs: "k8s/php-httpd.yaml", kubeconfigId: '')
+        kubernetesDeploy(configs: "k8s/lamp-secret.yaml", kubeconfigId: "mykubeconfig")
+        kubernetesDeploy(configs: "k8s/mariadb-configmap.yaml", kubeconfigId: "mykubeconfig")
+        kubernetesDeploy(configs: "k8s/mariadb.yaml", kubeconfigId: "mykubeconfig")
+        kubernetesDeploy(configs: "k8s/phpmyadmin.yaml", kubeconfigId: "mykubeconfig")
+        kubernetesDeploy(configs: "k8s/php-httpd.yaml", kubeconfigId: "mykubeconfig")
     }
 
 }
