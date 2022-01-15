@@ -21,7 +21,7 @@ node {
 
     stage('Deploy') {
 
-        kubernetesDeploy(configs: "k8s/php-httpd.yaml", kubeconfigId: "mykubeconfig")
+        sh 'kubectl -n jenkins apply -f k8s/php-httpd.yaml'
 
     }
 
