@@ -32,8 +32,8 @@ pipeline {
       steps {
 
           withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
-            sh 'kubectl apply -f mariadb.yaml'
             sh 'kubectl apply -f php-httpd.yaml'
+            sh 'kubectl apply -f mariadb.yaml'
             sh 'kubectl apply -f phpmyadmin.yaml'
         }
       }
