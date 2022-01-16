@@ -32,11 +32,11 @@ pipeline {
       steps {
 
           withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
-            sh '-n jenkins apply -f k8s/lamp-secret.yaml'
-            sh '-n jenkins apply -f k8s/mariadb-configmap.yaml'
-            sh '-n jenkins apply -f k8s/mariadb.yaml'
-            sh '-n jenkins apply -f k8s/php-httpd.yaml'
-            sh '-n jenkins apply -f k8s/phpmyadmin.yaml'
+            sh 'kubectl apply -n jenkins -f k8s/lamp-secret.yaml'
+            sh 'kubectl apply -n jenkins -f k8s/mariadb-configmap.yaml'
+            sh 'kubectl apply -n jenkins -f k8s/mariadb.yaml'
+            sh 'kubectl apply -n jenkins -f k8s/php-httpd.yaml'
+            sh 'kubectl apply -n jenkins -f k8s/phpmyadmin.yaml'
         }
       }
     }
