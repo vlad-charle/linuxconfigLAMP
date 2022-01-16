@@ -1,28 +1,44 @@
-node {
-    def app
+pipeline {
 
-    stage('Clone repository') {
+  agent any
 
-        checkout scm
+  stages {
+
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/vlad-charle/linuxconfigLAMP.git'
+      }
     }
 
     stage('Build image') {
-
-        app = docker.build("vladsanyuk/ssdevopscc")
+      steps{
+        script {
+          dockerImage = docker.build("vladsanyuk/ssdevopscc:php-httpd")
+        }
+      }
     }
 
-    stage('Push image') {
-
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-            app.push("php-httpd")
-            } 
-                echo "Trying to Push Docker Build to DockerHub"
+    stage('Push Image') {
+      steps{
+        script {
+          docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+            dockerImage.push()
+          }
+        }
+      }
     }
 
-    stage('Deploy') {
+    stage('Deploy App') {
+      steps {
 
-        sh 'kubectl -n jenkins apply -f k8s/php-httpd.yaml'
-
+          withCredentials([file(credentialsId: 'mykubeconfig', variable: 'KUBECONFIG')]) {
+            sh '-n jenkins apply -f k8s/lamp-secret.yaml'
+            sh '-n jenkins apply -f k8s/mariadb-configmap.yaml'
+            sh '-n jenkins apply -f k8s/mariadb.yaml'
+            sh '-n jenkins apply -f k8s/php-httpd.yaml'
+            sh '-n jenkins apply -f k8s/phpmyadmin.yaml'
+        }
+      }
     }
-
+  }
 }
