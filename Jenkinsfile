@@ -4,6 +4,12 @@ pipeline {
 
   stages {
 
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/vlad-charle/linuxconfigLAMP.git'
+      }
+    }
+
     stage('Deploy App') {
       steps {
 
